@@ -1,20 +1,28 @@
 # IMPORTANTE: Este script sólo corre en python >= 3.8
 from typing import List
 
-def LCS(s: str, t: str) -> List:
-    if len(s) == 0 or len(t) == 0:
+def LCS(s: str, t: str, dp: List = ...) -> List:
+    n, m = len(s) - 1, len(t) - 1
+    if dp == ...:
+        dp = [[None for i in range(m + 1)] for i in range(n + 1)]
+    if n == -1 or m == -1:
         return ([], [])
+    if dp[n][m] != None:
+        return dp[n][m]
+    
     if s[-1] == t[-1]:
-        temp = LCS(s[:-1], t[:-1])
-        return (temp[0] + [len(s) - 1], temp[1] + [len(t) - 1])
-    return max(
-        LCS(s, t[:-1]),
-        LCS(s[:-1], t),
-        key = lambda x: len(x[0])
-    )
+        temp = LCS(s[:-1], t[:-1], dp)
+        dp[n][m] = (temp[0] + [n], temp[1] + [m])
+    else:
+        dp[n][m] = max(
+            LCS(s, t[:-1], dp),
+            LCS(s[:-1], t, dp),
+            key = lambda x: len(x[0])
+        )
+    return dp[n][m]
 
 # Un ligero truco para que LCS recorra de izquierda a derecha en vez de derecha a izquierda.
-def iLCS(s: str, t: str):
+def iLCS(s: str, t: str) -> List:
     # Básicamente damos vuelta la palabra y LCS recorre la palabra invertida de derecha a izquierda,
     # luego damos vuelta los resultados y la palabra, logrando así que la palabra se recorriese de izquierda a derecha.
     iWay = list(LCS(s[::-1], t[::-1]))
