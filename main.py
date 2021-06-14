@@ -56,20 +56,20 @@ def misPruebas():
             print(" ".join(y))
 
 # Permite al usuario leer un archivo con casos de prueba.
-def lecturaInput(archivo):
+def lecturaInput(archivo: str) -> None:
     with open (archivo, 'r') as txt:
         repeticiones = int(txt.readline())
-        for x in range(repeticiones):
+        for _ in range(repeticiones):
             l1 = " ".join(txt.readline().strip().split()[1:])
             l2 = " ".join(txt.readline().strip().split()[1:])
             lst = min(
                 differences(*LCS(l1, l2), l1, l2),
                 differences(*iLCS(l1, l2), l1, l2),
                 key = lambda x: len(x)
-                )
+            )
             print(len(lst))
-            for y in lst:
-                print(" ".join(y))
+            for diff in lst:
+                print('{} {}'.format(*diff))
 
 def main():
     lecturaInput('input-1.txt')
@@ -79,8 +79,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-#COMENTARIO
-#ESTO ES UN COMENTARIO
-
-
