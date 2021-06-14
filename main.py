@@ -39,14 +39,46 @@ def differences(matchS: List[int], matchT: List[int], s: str, t: str) -> List:
             diffs.append(diff)
     return diffs
 
+# Permite al usuario hacer ingreso de sus propios casos de prueba
+def misPruebas():
+    while True:
+        l1 = input("Ingrese primera palabra: ")
+        l2 = input("Ingrese segunda palabra: ")
+        if l1 == '-1' and l2 == '-1':
+            break
+        lst = min(
+            differences(*LCS(l1, l2), l1, l2),
+            differences(*iLCS(l1, l2), l1, l2),
+            key = lambda x: len(x)
+            )
+        print(len(lst))
+        for y in lst:
+            print(" ".join(y))
+
+# Permite al usuario leer un archivo con casos de prueba.
+def lecturaInput(archivo):
+    with open (archivo, 'r') as txt:
+        repeticiones = int(txt.readline())
+        for x in range(repeticiones):
+            l1 = " ".join(txt.readline().strip().split()[1:])
+            l2 = " ".join(txt.readline().strip().split()[1:])
+            lst = min(
+                differences(*LCS(l1, l2), l1, l2),
+                differences(*iLCS(l1, l2), l1, l2),
+                key = lambda x: len(x)
+                )
+            print(len(lst))
+            for y in lst:
+                print(" ".join(y))
+
 def main():
-    s = 'Este es un texto'
-    t = 'Este es otro texto'
-    print(min(
-        differences(*LCS(s, t), s, t),
-        differences(*iLCS(s, t), s, t),
-        key = lambda x: len(x)
-    ))
+    lecturaInput('input-1.txt')
+    com = input("Desea ingresar sus propias pruebas? (y): ")
+    if com == 'y':
+        misPruebas()
 
 if __name__ == '__main__':
     main()
+
+
+

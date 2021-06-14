@@ -1,0 +1,13 @@
+6
+6 ABCLGH
+6 AELFHR
+6 AGGJAB
+7 GZJZAMB
+16 Este es un texto
+18 Este es otro texto
+5 PALTA
+8 AGUACATE
+7 POROTOS
+8 FRIJOLES
+43 Este es un texto muy largo, no la verdad si
+46 Este no es un texto muy corto, si la verdad no
