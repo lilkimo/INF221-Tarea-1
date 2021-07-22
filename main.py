@@ -30,6 +30,7 @@ def iLCS(s: str, t: str) -> List:
     iWay[1] = list(map(lambda x: len(t)-x-1, iWay[1]))[::-1]
     return tuple(iWay)
 
+# Recibe las listas con coincidencias de LCS, las descarta y encuentra los caracteres "no coincidentes".
 def differences(matchS: List[int], matchT: List[int], s: str, t: str) -> List:
     matchS, matchT = [-1] + matchS + [len(s)], [-1] + matchT + [len(t)]
     diffs = []
@@ -47,8 +48,8 @@ def lecturaInput(archivo: str) -> None:
             l1 = " ".join(txt.readline().strip().split()[1:])
             l2 = " ".join(txt.readline().strip().split()[1:])
             lst = min(
-                differences(*LCS(l1, l2), l1, l2),
                 differences(*iLCS(l1, l2), l1, l2),
+                differences(*LCS(l1, l2), l1, l2),
                 key = lambda x: len(x)
             )
             print(len(lst))
